@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateTodoDto, UpdateTodoDto } from './dto';
 import { Todo } from './entities/todo.entity';
 import { plainToClass } from 'class-transformer';
+import { check } from 'prettier';
 
 @Injectable()
 export class TodoService {
@@ -16,18 +17,12 @@ export class TodoService {
   }
 
   async create(createTodoDto: CreateTodoDto): Promise<Todo> {
-    const todo = plainToClass(CreateTodoDto, createTodoDto);
-    
     const maxId = this.todos.reduce(
       (max, todo) => (todo.id > max ? todo.id : max),
       0
     );
-    
-    const newTodo: Todo = {
-      id: maxId + 1,
-      ...todo,
-    };
 
+    const newTodo = new Todo(maxId + 1, createTodoDto.title, createTodoDto.description);
     this.todos.push(newTodo);
     return newTodo;
   }

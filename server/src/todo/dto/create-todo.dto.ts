@@ -1,4 +1,4 @@
-import { IsBoolean, IsDefined, IsNotEmpty, IsString } from "class-validator";
+import { IsDefined, IsNotEmpty, IsString } from "class-validator";
 
 export class CreateTodoDto {
 
@@ -10,7 +10,4 @@ export class CreateTodoDto {
   @IsDefined()
   @IsString()
   readonly description: string;
-
-  @IsBoolean()
-  readonly checked: boolean;
 }
