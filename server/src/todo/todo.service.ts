@@ -15,10 +15,16 @@ export class TodoService {
   }
 
   create(createTodoDto: CreateTodoDto) {
+    const maxId = this.todos.reduce(
+      (max, todo) => (todo.id > max ? todo.id : max),
+      0
+    );
+    
     const newTodo: Todo = {
-      id: this.todos.length + 1,
+      id: maxId + 1,
       ...createTodoDto,
     };
+
     this.todos.push(newTodo);
     return newTodo;
   }
