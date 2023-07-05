@@ -1,8 +1,16 @@
 # todo-list
 
+## Table of Contents
+
+- [server](#server)
+  - [Installation](#installation)
+  - [Endpoints](#endpoints)
+  - [Contributing](#contributing)
+  - [License](#license)
+
 ## server
 
-* ### Installation
+- ### Installation
 
     1. Clone the repository:
 
@@ -25,21 +33,21 @@
 
     The API will be available at <http://localhost:3000>.
 
-* ### Endpoints
+- ### Endpoints
 
-  * ```http request
+  - ```http request
     GET /todo
     ```
 
     Fetches all todos.
 
-  * ```http request
+  - ```http request
     GET /todo/:id
     ```
 
     Fetches a specific todo by ID.
 
-  * ```http request
+  - ```http request
     POST /todo
     ```
 
@@ -48,7 +56,7 @@
     -description (string): Description of the todo.
     -checked (string): Checked of the todo.`
 
-  * ```http request
+  - ```http request
     PATCH /todo/:id
     ```
 
@@ -57,16 +65,16 @@
     -description (string, optional): Updated description of the todo.
     -checked (boolean, optional): Updated checked of the todo.`
 
-  * ```http request
+  - ```http request
     DELETE /todo/:id
     ```
 
     Deletes a specific todo by ID.
 
-* ### Contributing
+- ### Contributing
 
     Contributions are welcome! If you find any issues or have suggestions, feel free to open an issue or submit a pull request.
 
-* ### License
+- ### License
 
     This project is licensed under the **[MIT License](https://opensource.org/license/mit/)**.
