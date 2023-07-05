@@ -1,20 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTodoDto, UpdateTodoDto } from './dto';
 import { Todo } from './entities/todo.entity';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class TodoService {
   private todos: Todo[] = [];
 
-  findAll() {
+  findAll(): Todo[] {
     return this.todos;
   }
 
-  findOne(id: number) {
+  findOne(id: number): Todo {
     return this.todos.find((todo) => todo.id === id);
   }
 
-  create(createTodoDto: CreateTodoDto) {
+  async create(createTodoDto: CreateTodoDto): Promise<Todo> {
+    const todo = plainToClass(CreateTodoDto, createTodoDto);
+    
     const maxId = this.todos.reduce(
       (max, todo) => (todo.id > max ? todo.id : max),
       0
@@ -22,24 +25,24 @@ export class TodoService {
     
     const newTodo: Todo = {
       id: maxId + 1,
-      ...createTodoDto,
+      ...todo,
     };
 
     this.todos.push(newTodo);
     return newTodo;
   }
 
-  update(id: number, updateTodoDto: UpdateTodoDto) {
+  update(id: number, updateTodoDto: UpdateTodoDto): Todo {
     const todo = this.todos.find((todo) => todo.id === id);
     if (!todo) {
       return null;
     }
-    const updatedTodo = { ...todo, ...updateTodoDto };
+    const updatedTodo: Todo = { ...todo, ...updateTodoDto };
     this.todos = this.todos.map((t) => (t.id === id ? updatedTodo : t));
     return updatedTodo;
   }
 
-  remove(id: number) {
+  remove(id: number): boolean {
     const index = this.todos.findIndex((todo) => todo.id === id);
     if (index === -1) {
       return false;

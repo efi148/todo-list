@@ -1,33 +1,46 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException, HttpException, HttpStatus, UsePipes, ValidationPipe, HttpCode } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { CreateTodoDto, UpdateTodoDto } from './dto';
+import { Todo } from './entities/todo.entity';
 
 @Controller('todo')
 export class TodoController {
-  constructor(private readonly todoService: TodoService) {}
+  constructor(private readonly todoService: TodoService) { }
 
   @Get()
-  findAll() {
+  findAll(): Todo[] {
     return this.todoService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.todoService.findOne(+id);
+  findOne(@Param('id') id: string): Todo {
+    const todo = this.todoService.findOne(+id);
+    if (!todo) {
+      throw new NotFoundException(`Todo with id ${id} not found!`);
+    }
+    return todo;
   }
 
   @Post()
-  create(@Body() createTodoDto: CreateTodoDto) {
+  create(@Body() createTodoDto: CreateTodoDto): Promise<Todo> {
     return this.todoService.create(createTodoDto);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTodoDto: UpdateTodoDto) {
-    return this.todoService.update(+id, updateTodoDto);
+  update(@Param('id') id: string, @Body() updateTodoDto: UpdateTodoDto): Todo {
+    const updatedTodo = this.todoService.update(+id, updateTodoDto);
+    if (!updatedTodo) {
+      throw new NotFoundException(`Todo with ID ${id} not found.`);
+    }
+    return updatedTodo;
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.todoService.remove(+id);
+  @HttpCode(204)
+  remove(@Param('id') id: string): void {
+    const removed = this.todoService.remove(+id);
+    if (!removed) {
+      throw new NotFoundException(`Todo with ID ${id} not found.`);
+    }
   }
 }
