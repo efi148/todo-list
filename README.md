@@ -52,18 +52,17 @@
     ```
 
     Creates a new todo. Requires a JSON payload in the request body with the following properties:
-    `-title (string): Title of the todo.
-    -description (string): Description of the todo.
-    -checked (string): Checked of the todo.`
+    `title (string).
+    description (string).`
 
   - ```http request
     PATCH /todo/:id
     ```
 
     Updates a specific todo by ID. Requires a JSON payload in the request body with the properties you want to update:
-    `-title (string, optional): Updated title of the todo.
-    -description (string, optional): Updated description of the todo.
-    -checked (boolean, optional): Updated checked of the todo.`
+    `title (string, optional).
+    description (string, optional).
+    checked (boolean, optional).`
 
   - ```http request
     DELETE /todo/:id
