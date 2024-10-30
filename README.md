@@ -36,27 +36,27 @@
 - ### Endpoints
 
   - ```http request
-    GET /todo
+    GET /todos
     ```
 
     Fetches all todos.
 
   - ```http request
-    GET /todo/:id
+    GET /todos/:id
     ```
 
-    Fetches a specific todo by ID.
+    Fetches a specific to-do by ID.
 
   - ```http request
-    POST /todo
+    POST /todos
     ```
 
-    Creates a new todo. Requires a JSON payload in the request body with the following properties:
+    Create a new to-do. Requires a JSON payload in the request body with the following properties:
     `title (string).
     description (string).`
 
   - ```http request
-    PATCH /todo/:id
+    PATCH /todos/:id
     ```
 
     Updates a specific todo by ID. Requires a JSON payload in the request body with the properties you want to update:
@@ -65,10 +65,10 @@
     checked (boolean, optional).`
 
   - ```http request
-    DELETE /todo/:id
+    DELETE /todos/:id
     ```
 
-    Deletes a specific todo by ID.
+    Delete a specific to-do by ID.
 
 - ### Contributing
 
