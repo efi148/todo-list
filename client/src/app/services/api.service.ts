@@ -18,7 +18,7 @@ export class ApiService {
     }
 
     patch(uri: string, body = {}, header: any = {}): Observable<Object> {
-        return this.httpClient.put(uri, body, {headers: header});
+        return this.httpClient.patch(uri, body, {headers: header});
     }
 
     delete(uri: string, header: any = {}): Observable<HttpResponse<Object>> {
