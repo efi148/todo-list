@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {Todo} from "./interfaces";
-import {ApiService} from "./services/api.service";
-import {Observable} from "rxjs";
-import {baseUrl} from "./consts";
-import {HttpClientModule} from "@angular/common/http";
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Todo } from "./interfaces";
+import { ApiService } from "./services/api.service";
+import { Observable } from "rxjs";
+import { baseUrl } from "./consts";
+import { HttpClientModule } from "@angular/common/http";
 
 @Component({
     selector: 'app-root',
@@ -16,7 +16,9 @@ import {HttpClientModule} from "@angular/common/http";
 })
 export class AppComponent implements OnInit {
     todos$: Observable<Todo[]> = new Observable<Todo[]>();
-    constructor(private readonly apiService: ApiService) {}
+
+    constructor(private readonly apiService: ApiService) {
+    }
 
     ngOnInit(): void {
         this.getTodos();
