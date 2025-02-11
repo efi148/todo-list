@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
         this.apiService.get(baseUrl + '\\todos').pipe(first()).subscribe((data: any) => {
             this.todos = data;
             console.log(data);
-        })
+        });
     }
 
     addTodo(title: string) {
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
     }
 
     updateTodo(todo: Todo) {
-        this.apiService.patch(baseUrl + '\\todos\\' + todo.id, {title: todo.title, checked: todo.checked}).pipe(first()).subscribe(() => {
+        this.apiService.patch(baseUrl + '\\todos\\' + todo.id, {title: todo.title, checked: todo.checked, description: todo.description}).pipe(first()).subscribe(() => {
             this.getTodos();
         });
     }
