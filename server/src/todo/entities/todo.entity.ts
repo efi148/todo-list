@@ -1,13 +1,16 @@
-export class Todo {
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-  id: number;
-  title: string;
-  description: string;
-  checked: boolean;
-  constructor(id: number, title: string, description: string) {
-    this.id = id;
-    this.title = title;
-    this.description = description;
-    this.checked = false;
-  }
+@Entity()
+export class Todo {
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column()
+    title: string;
+
+    @Column()
+    description: string;
+
+    @Column({ default: false })
+    checked: boolean;
 }
