@@ -6,11 +6,12 @@ import { baseUrl } from "./consts";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { first, firstValueFrom } from "rxjs";
+import { Button } from "primeng/button";
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [CommonModule, HttpClientModule, FormsModule],
+    imports: [CommonModule, HttpClientModule, FormsModule, Button],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     providers: [ApiService]
