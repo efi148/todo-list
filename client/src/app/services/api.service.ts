@@ -10,8 +10,8 @@ export class ApiService {
     constructor(private readonly httpClient: HttpClient) {
     }
 
-    get<T>(uri: string, headers?: HttpHeaders): Observable<T> {
-        return this.httpClient.get<T>(uri, {headers})
+    get<T>(uri: string, headers?: HttpHeaders): Observable<HttpResponse<T>> {
+        return this.httpClient.get<T>(uri, {headers, observe: 'response'})
             .pipe(catchError(this.handleError));
     }
 
@@ -20,8 +20,8 @@ export class ApiService {
             .pipe(catchError(this.handleError));
     }
 
-    patch<T>(uri: string, body = {}, headers?: HttpHeaders): Observable<T> {
-        return this.httpClient.patch<T>(uri, body, {headers})
+    patch<T>(uri: string, body = {}, headers?: HttpHeaders): Observable<HttpResponse<T>> {
+        return this.httpClient.patch<T>(uri, body, {headers, observe: 'response'})
             .pipe(catchError(this.handleError));
     }
 

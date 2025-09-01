@@ -3,15 +3,14 @@ import { CommonModule } from '@angular/common';
 import { Todo } from "./interfaces";
 import { ApiService } from "./services/api.service";
 import { baseUrl } from "./consts";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HttpResponse } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { first, firstValueFrom } from "rxjs";
-import { Button } from "primeng/button";
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [CommonModule, HttpClientModule, FormsModule, Button],
+    imports: [CommonModule, HttpClientModule, FormsModule],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     providers: [ApiService]
@@ -29,8 +28,9 @@ export class AppComponent implements OnInit {
     }
 
     getTodos(): void {
-        this.apiService.get(baseUrl + '\\todos').pipe(first()).subscribe((data: any) => {
-            this.todos = data;
+        this.apiService.get<Todo[]>(baseUrl + '/todos').pipe(first()).subscribe((response: HttpResponse<Todo[]>) => {
+            const {body: data} = response;
+            this.todos = data || [];
             console.log(data);
         });
     }
@@ -38,13 +38,17 @@ export class AppComponent implements OnInit {
     addTodo(title: string) {
         if (!title.trim()) return;
         const todo: Partial<Todo> = {title, description: ''};
-        firstValueFrom(this.apiService.post(baseUrl + '\\todos', todo)).then(() => {
+        firstValueFrom(this.apiService.post(baseUrl + '/todos', todo)).then(() => {
             this.getTodos();
         });
     }
 
     updateTodo(todo: Todo) {
-        this.apiService.patch(baseUrl + '\\todos\\' + todo.id, {title: todo.title, checked: todo.checked, description: todo.description}).pipe(first()).subscribe(() => {
+        this.apiService.patch(baseUrl + '/todos/' + todo.id, {
+            title: todo.title,
+            checked: todo.checked,
+            description: todo.description
+        }).pipe(first()).subscribe(() => {
             this.getTodos();
         });
     }
@@ -54,7 +58,7 @@ export class AppComponent implements OnInit {
     }
 
     deleteTodo(id: number) {
-        this.apiService.delete(baseUrl + '\\todos\\' + id).pipe(first()).subscribe(() => {
+        this.apiService.delete(baseUrl + '/todos/' + id).pipe(first()).subscribe(() => {
             this.getTodos();
         });
     }
