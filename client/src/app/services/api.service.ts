@@ -1,6 +1,6 @@
-import {Injectable} from "@angular/core";
-import {HttpClient, HttpResponse} from "@angular/common/http";
-import {Observable} from "rxjs";
+import { Injectable, Inject } from "@angular/core";
+import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -9,19 +9,19 @@ export class ApiService {
     constructor(private readonly httpClient: HttpClient) {
     }
 
-    get(uri: string, header: any = {}): Observable<Object> {
-        return this.httpClient.get(uri, {headers: header});
+    get<T>(uri: string, headers?: HttpHeaders): Observable<T> {
+        return this.httpClient.get<T>(uri, {headers});
     }
 
-    post(uri: string, body: any, header: any = {}): Observable<HttpResponse<Object>> {
-        return this.httpClient.post(uri, body, {headers: header, observe: 'response'});
+    post<T>(uri: string, body: any, headers?: HttpHeaders): Observable<HttpResponse<T>> {
+        return this.httpClient.post<T>(uri, body, {headers, observe: 'response'});
     }
 
-    patch(uri: string, body = {}, header: any = {}): Observable<Object> {
-        return this.httpClient.patch(uri, body, {headers: header});
+    patch<T>(uri: string, body = {}, headers?: HttpHeaders): Observable<T> {
+        return this.httpClient.patch<T>(uri, body, {headers});
     }
 
-    delete(uri: string, header: any = {}): Observable<HttpResponse<Object>> {
-        return this.httpClient.delete(uri, {headers: header, observe: 'response'});
+    delete<T>(uri: string, headers?: HttpHeaders): Observable<HttpResponse<T>> {
+        return this.httpClient.delete<T>(uri, {headers, observe: 'response'});
     }
 }
