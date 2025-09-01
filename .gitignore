@@ -159,3 +159,14 @@ dist
 
 package-lock.json
 .vscode
+
+# Database files
+database.sqlite
+*.sqlite
+*.sqlite3
+*.db
+
+# Server database specifically
+server/database.sqlite
+server/*.sqlite
+server/*.db
