@@ -9,7 +9,6 @@ import { first, firstValueFrom } from "rxjs";
 
 @Component({
     selector: 'app-root',
-    standalone: true,
     imports: [CommonModule, FormsModule],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
