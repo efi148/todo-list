@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { Todo } from "./interfaces";
 import { ApiService } from "./services/api.service";
 import { baseUrl } from "./consts";
-import { HttpClientModule, HttpResponse } from "@angular/common/http";
+import { HttpResponse } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { first, firstValueFrom } from "rxjs";
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [CommonModule, HttpClientModule, FormsModule],
+    imports: [CommonModule, FormsModule],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     providers: [ApiService]
