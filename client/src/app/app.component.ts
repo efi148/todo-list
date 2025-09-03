@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Todo } from "./interfaces";
 import { ApiService } from "./services/api.service";
 import { baseUrl } from "./consts";
@@ -9,7 +9,7 @@ import { first, firstValueFrom } from "rxjs";
 
 @Component({
     selector: 'app-root',
-    imports: [CommonModule, FormsModule],
+    imports: [FormsModule],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     providers: [ApiService]

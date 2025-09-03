@@ -1,13 +1,15 @@
 <div class="container">
-    <h1>To-Do App</h1>
-    <input #newTodo placeholder="Add a new task" />
-    <button (click)="addTodo(newTodo.value)">Add</button>
-    <ul>
-        <li *ngFor="let todo of todos">
-            <input type="checkbox" [(ngModel)]="todo.checked" (change)="toggleChecked(todo)" />
-            <input [(ngModel)]="todo.title" (change)="updateTodo(todo)" />
-            <input [(ngModel)]="todo.description" (change)="updateTodo(todo)" />
-            <button (click)="deleteTodo(todo.id)">Delete</button>
-        </li>
-    </ul>
+  <h1>To-Do App</h1>
+  <input #newTodo placeholder="Add a new task" />
+  <button (click)="addTodo(newTodo.value)">Add</button>
+  <ul>
+    @for (todo of todos; track todo) {
+      <li>
+        <input type="checkbox" [(ngModel)]="todo.checked" (change)="toggleChecked(todo)" />
+        <input [(ngModel)]="todo.title" (change)="updateTodo(todo)" />
+        <input [(ngModel)]="todo.description" (change)="updateTodo(todo)" />
+        <button (click)="deleteTodo(todo.id)">Delete</button>
+      </li>
+    }
+  </ul>
 </div>
