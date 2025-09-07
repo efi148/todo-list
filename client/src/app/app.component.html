@@ -1,15 +1,93 @@
-<div class="container">
-  <h1>To-Do App</h1>
-  <input #newTodo placeholder="Add a new task" />
-  <button (click)="addTodo(newTodo.value)">Add</button>
-  <ul>
-    @for (todo of todos; track todo) {
-      <li>
-        <input type="checkbox" [(ngModel)]="todo.checked" (change)="toggleChecked(todo)" />
-        <input [(ngModel)]="todo.title" (change)="updateTodo(todo)" />
-        <input [(ngModel)]="todo.description" (change)="updateTodo(todo)" />
-        <button (click)="deleteTodo(todo.id)">Delete</button>
-      </li>
+<!-- Main Toolbar -->
+<mat-toolbar color="accent" class="app-toolbar">
+    <span>Todo App</span>
+
+    <div class="toolbar-spacer"></div>
+
+    <button mat-icon-button (click)="toggleTheme()"
+            [attr.aria-label]="'Current theme: ' + themeMode"
+            [matTooltip]="'Current theme: ' + themeMode">
+        <mat-icon>
+            {{
+                themeMode === 'light' ? 'light_mode' :
+                    themeMode === 'dark' ? 'dark_mode' : 'brightness_auto'
+            }}
+        </mat-icon>
+    </button>
+
+    <!-- Menu (for future features) -->
+    <!--    <button mat-icon-button [matMenuTriggerFor]="menu">-->
+    <!--        <mat-icon>more_vert</mat-icon>-->
+    <!--    </button>-->
+    <!--    <mat-menu #menu="matMenu">-->
+    <!--        <button mat-menu-item>-->
+    <!--            <mat-icon>archive</mat-icon>-->
+    <!--            <span>Archive</span>-->
+    <!--        </button>-->
+    <!--        <button mat-menu-item>-->
+    <!--            <mat-icon>delete</mat-icon>-->
+    <!--            <span>Recycle Bin</span>-->
+    <!--        </button>-->
+    <!--    </mat-menu>-->
+</mat-toolbar>
+
+<!-- Main Content -->
+<div class="app-container">
+    <!-- Todo List -->
+    @if (todos.length > 0) {
+        <div class="todo-list-container">
+            @for (todo of todos; track todo) {
+                <mat-card class="todo-card" appearance="outlined">
+                    <mat-card-content class="todo-card-content">
+                        <div class="todo-main">
+                            <mat-checkbox
+                                    [checked]="todo.checked"
+                                    (change)="todo.checked = !todo.checked; toggleChecked(todo)"
+                                    [attr.aria-label]="'Mark ' + todo.title + (todo.checked ? ' as incomplete' : ' as complete')">
+                            </mat-checkbox>
+
+                            <div class="todo-text" [class.completed]="todo.checked">
+                                <h3 class="todo-title">{{ todo.title }}
+                                    @if (todo.description && todo.description.trim()) {
+                                        |<span class="todo-description"> {{ todo.description }}</span>
+                                    }
+                                </h3>
+
+                            </div>
+                        </div>
+
+                        <div class="todo-actions">
+                            <button mat-icon-button (click)="editTodo(todo)" matTooltip="Edit"
+                                    matTooltipPosition="above">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button  (click)="deleteTodo(todo.id)" matTooltip="Delete"
+                                    matTooltipPosition="above">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            }
+
+        </div>
     }
-  </ul>
+
+    <!-- Empty State -->
+    @if (todos.length === 0) {
+        <div class="empty-state">
+            <mat-card class="empty-card">
+                <mat-card-content class="empty-content">
+                    <mat-icon class="empty-icon">task_alt</mat-icon>
+                    <h2>There is nothing here...</h2>
+                    <p>You can create a new task by clicking the + button</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    }
 </div>
+
+<!-- Floating Action Button -->
+<button mat-fab color="primary" class="fab" (click)="openCreateDialog()">
+    <mat-icon>add</mat-icon>
+</button>
