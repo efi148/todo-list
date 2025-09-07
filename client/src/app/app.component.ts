@@ -12,24 +12,19 @@ import { MatCheckbox } from "@angular/material/checkbox";
 import { MatIconModule } from '@angular/material/icon';
 import { MatFabButton, MatIconButton } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { ThemeService } from "./services/theme.service";
 
 @Component({
     selector: 'app-root',
     imports: [FormsModule, MatToolbar, MatIconModule, MatCard, MatCardContent, MatCheckbox, MatFabButton, MatIconButton, MatTooltipModule],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    providers: [ApiService]
+    providers: [ApiService, ThemeService]
 })
 export class AppComponent implements OnInit {
-    themeMode: 'light' | 'dark' | 'system' = 'system';
     todos: Todo[] = [];
 
-    constructor(private readonly apiService: ApiService) {
-        const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | 'system';
-        this.themeMode = savedTheme || 'system';
-
-        this.applyTheme();
-    }
+    constructor(public themeService: ThemeService, private readonly apiService: ApiService) {}
 
     ngOnInit(): void {
         this.getTodos();
@@ -71,20 +66,7 @@ export class AppComponent implements OnInit {
     }
 
     toggleTheme(): void {
-        switch (this.themeMode) {
-            case 'system':
-                this.themeMode = 'light';
-                break;
-            case 'light':
-                this.themeMode = 'dark';
-                break;
-            case 'dark':
-                this.themeMode = 'system';
-                break;
-        }
-
-        this.applyTheme();
-        localStorage.setItem('theme', this.themeMode);
+        this.themeService.toggleTheme();
     }
 
     editTodo(todo: Todo): void {
@@ -95,22 +77,5 @@ export class AppComponent implements OnInit {
     openCreateDialog(): void {
         // TODO: Implement in next step
         console.log('Open create dialog');
-    }
-
-    private applyTheme(): void {
-        const body = document.body;
-
-        body.classList.remove('light-theme', 'dark-theme');
-
-        switch (this.themeMode) {
-            case 'light':
-                body.classList.add('light-theme');
-                break;
-            case 'dark':
-                body.classList.add('dark-theme');
-                break;
-            case 'system':
-                break;
-        }
     }
 }

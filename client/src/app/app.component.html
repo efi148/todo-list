@@ -5,14 +5,12 @@
     <div class="toolbar-spacer"></div>
 
     <button mat-icon-button (click)="toggleTheme()"
-            [attr.aria-label]="'Current theme: ' + themeMode"
-            [matTooltip]="'Current theme: ' + themeMode">
-        <mat-icon>
-            {{
-                themeMode === 'light' ? 'light_mode' :
-                    themeMode === 'dark' ? 'dark_mode' : 'brightness_auto'
-            }}
-        </mat-icon>
+            [attr.aria-label]="'Current theme: ' + themeService.themeMode()"
+            matTooltip="Current theme: {{ themeService.themeMode() }}">
+        <mat-icon> {{
+                themeService.themeMode() === 'light' ? 'light_mode' :
+                    themeService.themeMode() === 'dark' ? 'dark_mode' : 'brightness_medium'
+            }}</mat-icon>
     </button>
 
     <!-- Menu (for future features) -->
