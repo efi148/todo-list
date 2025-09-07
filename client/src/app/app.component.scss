@@ -9,7 +9,7 @@
 }
 
 .app-container {
-  padding: 24px;
+  padding: var(--spacing-md);
   max-width: 800px;
   margin: 0 auto;
 }
@@ -17,7 +17,7 @@
 .todo-list-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--spacing-sm);
 }
 
 .todo-card {
@@ -27,7 +27,7 @@
 
     .todo-main {
       display: flex;
-      gap: 16px;
+      gap: var(--spacing-sm);
       flex: 1;
       align-items: center;
       overflow: hidden;
@@ -63,8 +63,8 @@
 
     .todo-actions {
       display: flex;
-      gap: 8px;
-      margin-left: 16px;
+      gap: var(--spacing-xs);
+      margin-left: var(--spacing-sm);
     }
   }
 }
@@ -80,18 +80,18 @@
     text-align: center;
 
     .empty-content {
-      padding: 48px 24px;
+      padding: var(--spacing-2xl) var(--spacing-md);
 
       .empty-icon {
-        font-size: 64px;
-        width: 64px;
-        height: 64px;
+        font-size: var(--spacing-3xl);
+        width: var(--spacing-3xl);
+        height: var(--spacing-3xl);
         opacity: 0.5;
-        margin-bottom: 24px;
+        margin-bottom: var(--spacing-md);
       }
 
       h2 {
-        margin: 0 0 16px 0;
+        margin: 0 0 var(--spacing-sm) 0;
         color: var(--mat-sys-on-surface-variant, rgba(0, 0, 0, 0.6));
       }
 
@@ -105,20 +105,20 @@
 
 .fab {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: var(--spacing-md);
+  right: var(--spacing-md);
   z-index: 1000;
 }
 
 // Responsive design
 @media (max-width: 768px) {
   .app-container {
-    padding: 16px;
+    padding: var(--spacing-sm);
   }
 
   .todo-card .todo-card-content {
     flex-direction: column;
-    gap: 16px;
+    gap: var(--spacing-sm);
 
     .todo-actions {
       margin-left: 0;

@@ -47,6 +47,18 @@ body {
   }
 }
 
+:root {
+  --spacing-xxs: 0.25rem;   /* 4px */
+  --spacing-xs: 0.5rem;     /* 8px */
+  --spacing-sm: 1rem;       /* 16px */
+  --spacing-md: 1.5rem;     /* 24px */
+  --spacing-lg: 2rem;       /* 32px */
+  --spacing-xl: 2.5rem;     /* 40px */
+  --spacing-2xl: 3rem;      /* 48px */
+  --spacing-3xl: 4rem;      /* 64px */
+}
+
+
 html, body {
   height: 100%;
 }
