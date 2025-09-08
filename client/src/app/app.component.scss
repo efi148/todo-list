@@ -62,11 +62,19 @@
     }
 
     .todo-actions {
+      visibility: hidden;
       display: flex;
       gap: var(--spacing-xs);
       margin-left: var(--spacing-sm);
     }
   }
+
+  &:hover {
+    .todo-actions {
+      visibility: visible !important;
+    }
+  }
+
 }
 
 .empty-state {

@@ -1,32 +1,16 @@
 <!-- Main Toolbar -->
 <mat-toolbar color="accent" class="app-toolbar">
     <span>Todo App</span>
-
     <div class="toolbar-spacer"></div>
-
     <button mat-icon-button (click)="toggleTheme()"
             [attr.aria-label]="'Current theme: ' + themeService.themeMode()"
             matTooltip="Current theme: {{ themeService.themeMode() }}">
         <mat-icon> {{
                 themeService.themeMode() === 'light' ? 'light_mode' :
                     themeService.themeMode() === 'dark' ? 'dark_mode' : 'brightness_medium'
-            }}</mat-icon>
+            }}
+        </mat-icon>
     </button>
-
-    <!-- Menu (for future features) -->
-    <!--    <button mat-icon-button [matMenuTriggerFor]="menu">-->
-    <!--        <mat-icon>more_vert</mat-icon>-->
-    <!--    </button>-->
-    <!--    <mat-menu #menu="matMenu">-->
-    <!--        <button mat-menu-item>-->
-    <!--            <mat-icon>archive</mat-icon>-->
-    <!--            <span>Archive</span>-->
-    <!--        </button>-->
-    <!--        <button mat-menu-item>-->
-    <!--            <mat-icon>delete</mat-icon>-->
-    <!--            <span>Recycle Bin</span>-->
-    <!--        </button>-->
-    <!--    </mat-menu>-->
 </mat-toolbar>
 
 <!-- Main Content -->
@@ -59,7 +43,7 @@
                                     matTooltipPosition="above">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            <button mat-icon-button  (click)="deleteTodo(todo.id)" matTooltip="Delete"
+                            <button mat-icon-button (click)="deleteTodo(todo.id)" matTooltip="Delete"
                                     matTooltipPosition="above">
                                 <mat-icon>delete</mat-icon>
                             </button>
