@@ -45,6 +45,12 @@ body {
             color: mat.$orange-palette
     ));
   }
+
+  .danger {
+    @include mat.theme((
+            color: mat.$red-palette
+    ));
+  }
 }
 
 :root {

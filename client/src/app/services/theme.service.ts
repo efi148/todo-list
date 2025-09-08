@@ -1,5 +1,5 @@
 import { effect, signal } from '@angular/core';
-import { ThemeMode } from "../interfaces";
+import { ThemeMode } from "@interfaces";
 
 export class ThemeService {
     themeMode = signal<ThemeMode>('system');

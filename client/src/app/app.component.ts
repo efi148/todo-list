@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 
-import { Todo } from "./interfaces";
-import { ApiService } from "./services/api.service";
-import { baseUrl } from "./consts";
+import { dialogMode, dialogResult, Todo, TodoDialogData } from "@interfaces";
+import { ApiService } from "@services/api.service";
+import { baseUrl } from "@const";
 import { HttpResponse } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { first, firstValueFrom } from "rxjs";
@@ -12,7 +12,9 @@ import { MatCheckbox } from "@angular/material/checkbox";
 import { MatIconModule } from '@angular/material/icon';
 import { MatFabButton, MatIconButton } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
-import { ThemeService } from "./services/theme.service";
+import { ThemeService } from "@services/theme.service";
+import { MatDialog } from "@angular/material/dialog";
+import { DialogTodoComponent } from "./components/dialog-todo/dialog-todo.component";
 
 @Component({
     selector: 'app-root',
@@ -22,9 +24,11 @@ import { ThemeService } from "./services/theme.service";
     providers: [ApiService, ThemeService]
 })
 export class AppComponent implements OnInit {
+    readonly dialog = inject(MatDialog);
     todos: Todo[] = [];
 
-    constructor(public themeService: ThemeService, private readonly apiService: ApiService) {}
+    constructor(public themeService: ThemeService, private readonly apiService: ApiService) {
+    }
 
     ngOnInit(): void {
         this.getTodos();
@@ -37,9 +41,9 @@ export class AppComponent implements OnInit {
         });
     }
 
-    addTodo(title: string) {
+    addTodo(title: string, description?: string) {
         if (!title.trim()) return;
-        const todo: Partial<Todo> = {title, description: ''};
+        const todo: Partial<Todo> = {title, description};
         firstValueFrom(this.apiService.post(baseUrl + '/todos', todo)).then(() => {
             this.getTodos();
         });
@@ -69,13 +73,26 @@ export class AppComponent implements OnInit {
         this.themeService.toggleTheme();
     }
 
-    editTodo(todo: Todo): void {
-        // TODO: Implement in next step
-        console.log('Edit todo:', todo);
-    }
+    openTodoDialog(mode: dialogMode, todo?: Todo): void {
+        const dialogRef = this.dialog.open<DialogTodoComponent, TodoDialogData>(DialogTodoComponent, {
+            data: {mode, todo}
+        });
+        dialogRef.afterClosed().subscribe((result: dialogResult) => {
+            if (!result || !result.todo) return;
 
-    openCreateDialog(): void {
-        // TODO: Implement in next step
-        console.log('Open create dialog');
+            switch (result.action) {
+                case 'create':
+                    this.addTodo(result.todo.title, result.todo.description);
+                    break;
+                case 'save':
+                    this.updateTodo(result.todo);
+                    break;
+                case 'delete':
+                    if (todo?.id !== undefined) this.deleteTodo(todo.id);
+                    break;
+            }
+
+            console.log(result);
+        });
     }
 }

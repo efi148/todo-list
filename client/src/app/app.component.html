@@ -39,7 +39,11 @@
                         </div>
 
                         <div class="todo-actions">
-                            <button mat-icon-button (click)="editTodo(todo)" matTooltip="Edit"
+                            <button mat-icon-button (click)="openTodoDialog('view',todo)" matTooltip="Expand"
+                                    matTooltipPosition="above">
+                                <mat-icon>arrow_outward</mat-icon>
+                            </button>
+                            <button mat-icon-button (click)="openTodoDialog('edit', todo)" matTooltip="Edit"
                                     matTooltipPosition="above">
                                 <mat-icon>edit</mat-icon>
                             </button>
@@ -51,7 +55,6 @@
                     </mat-card-content>
                 </mat-card>
             }
-
         </div>
     }
 
@@ -70,6 +73,6 @@
 </div>
 
 <!-- Floating Action Button -->
-<button mat-fab color="primary" class="fab" (click)="openCreateDialog()">
+<button mat-fab color="primary" class="fab" (click)="openTodoDialog('create')">
     <mat-icon>add</mat-icon>
 </button>

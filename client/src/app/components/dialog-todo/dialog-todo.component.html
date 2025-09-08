@@ -1,0 +1,60 @@
+<h2 mat-dialog-title>{{ dialogTitle() }}</h2>
+
+<mat-dialog-content>
+    <form #form="ngForm">
+        @if (mode() !== 'view') {
+            <mat-form-field class="full-width">
+                <mat-label>Title</mat-label>
+                <input
+                        matInput
+                        name="title"
+                        [(ngModel)]="title"
+                        #titleModel="ngModel"
+                        [readonly]="mode() === 'view'"
+                        required/>
+                @if (titleModel.invalid && (titleModel.dirty || titleModel.touched)) {
+                    <mat-error>
+                        Title is required
+                    </mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Description</mat-label>
+                <textarea
+                        matInput
+                        name="description"
+                        [(ngModel)]="description"
+                        [readonly]="mode() === 'view'">
+            </textarea>
+            </mat-form-field>
+        } @else {
+<div>
+    <h2>{{title()}}</h2>
+    <mat-divider></mat-divider>
+    <p>{{description()}}</p>
+</div>
+        }
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+    @if (mode() !== 'view') {
+        <button mat-button (click)="onCancel()">Cancel</button>
+    }
+
+    @if (mode() === 'create') {
+        <button matButton="filled" [disabled]="!form.valid" (click)="onCreate()">Create</button>
+    }
+
+    @if (mode() === 'view') {
+        <button mat-button (click)="switchToEdit()">Edit</button>
+        <button mat-button class="danger" matButton="filled" (click)="onDelete()">Delete</button>
+    }
+
+    @if (mode() === 'edit') {
+        <button matButton="filled" [disabled]="!canSave(form)" (click)="onSave()">Save</button>
+    }
+
+</mat-dialog-actions>
