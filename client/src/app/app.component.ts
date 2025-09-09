@@ -46,7 +46,6 @@ export class AppComponent implements OnInit {
         this.apiService.post('/todos', todo)
             .subscribe({
                 next: (res) => {
-                    console.log(res);
                     this.todos.push(res.body as Todo);
                 },
                 error: (err) => console.error('Failed to add todo', err)
@@ -73,10 +72,6 @@ export class AppComponent implements OnInit {
             },
             error: err => console.error('Delete failed', err)
         });
-    }
-
-    onView(event: { todo: Todo, isEditable: boolean }) {
-        this.openTodoDialog(event.isEditable ? 'edit' : 'view', event.todo);
     }
 
     toggleTheme(): void {

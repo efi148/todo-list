@@ -23,7 +23,7 @@
                             [todo]="signal(todo)"
                             (update)="onUpdateTodo($event)"
                             (delete)="onDeleteTodo($event)"
-                            (view)="onView($event)">
+                            (view)="openTodoDialog($event.isEditable ? 'edit' : 'view', $event.todo)">
                     </app-todo-item>
                 }
             </div>
