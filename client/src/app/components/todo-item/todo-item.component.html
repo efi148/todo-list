@@ -1,10 +1,9 @@
-<mat-card class="todo-card" appearance="outlined">
+<mat-card class="todo-card" appearance="raised">
   <mat-card-content class="todo-card-content">
     <div class="todo-main">
       <mat-checkbox
         [checked]="todo().checked"
-        (change)="toggleChecked()"
-        [attr.aria-label]="'Mark ' + todo().title + (todo().checked ? ' as incomplete' : ' as complete')">
+        (change)="toggleChecked()">
       </mat-checkbox>
       <div class="todo-text" [class.completed]="todo().checked">
         <h3 class="todo-title text-ellipsis">{{ todo().title }}
