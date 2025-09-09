@@ -29,9 +29,9 @@
                             </mat-checkbox>
 
                             <div class="todo-text" [class.completed]="todo.checked">
-                                <h3 class="todo-title">{{ todo.title }}
+                                <h3 class="todo-title text-ellipsis">{{ todo.title }}
                                     @if (todo.description && todo.description.trim()) {
-                                        |<span class="todo-description"> {{ todo.description }}</span>
+                                        |<span class="todo-description text-ellipsis"> {{ todo.description }}</span>
                                     }
                                 </h3>
 

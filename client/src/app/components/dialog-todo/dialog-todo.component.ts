@@ -12,6 +12,7 @@ import { MatInput, MatInputModule } from "@angular/material/input";
 import { MatButton } from "@angular/material/button";
 import { TodoDialogData } from "@interfaces";
 import { MatDivider } from "@angular/material/divider";
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
     selector: 'app-dialog-todo',
@@ -26,6 +27,7 @@ import { MatDivider } from "@angular/material/divider";
         MatInput,
         MatButton,
         MatDivider,
+        MatIconModule,
     ],
     templateUrl: './dialog-todo.component.html',
     styleUrl: './dialog-todo.component.scss'

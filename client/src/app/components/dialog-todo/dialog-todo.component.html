@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{ dialogTitle() }}</h2>
+<h2 mat-dialog-title class="text-ellipsis">{{ dialogTitle() }}</h2>
 
 <mat-dialog-content>
     <form #form="ngForm">
@@ -29,11 +29,11 @@
             </textarea>
             </mat-form-field>
         } @else {
-<div>
-    <h2>{{title()}}</h2>
-    <mat-divider></mat-divider>
-    <p>{{description()}}</p>
-</div>
+            <div>
+                <h2>{{ title() }}</h2>
+                <mat-divider></mat-divider>
+                <p>{{ description() }}</p>
+            </div>
         }
     </form>
 </mat-dialog-content>
@@ -41,20 +41,30 @@
 <mat-dialog-actions align="end">
 
     @if (mode() !== 'view') {
-        <button mat-button (click)="onCancel()">Cancel</button>
+        <button mat-button (click)="onCancel()">Cancel
+            <mat-icon>cancel</mat-icon>
+        </button>
     }
 
     @if (mode() === 'create') {
-        <button matButton="filled" [disabled]="!form.valid" (click)="onCreate()">Create</button>
+        <button matButton="filled" [disabled]="!form.valid" (click)="onCreate()">Create
+            <mat-icon>add</mat-icon>
+        </button>
     }
 
     @if (mode() === 'view') {
-        <button mat-button (click)="switchToEdit()">Edit</button>
-        <button mat-button class="danger" matButton="filled" (click)="onDelete()">Delete</button>
+        <button mat-button (click)="switchToEdit()">Edit
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-button class="danger" matButton="filled" (click)="onDelete()">Delete
+            <mat-icon>delete</mat-icon>
+        </button>
     }
 
     @if (mode() === 'edit') {
-        <button matButton="filled" [disabled]="!canSave(form)" (click)="onSave()">Save</button>
+        <button matButton="filled" [disabled]="!canSave(form)" (click)="onSave()">Save
+            <mat-icon>save</mat-icon>
+        </button>
     }
 
 </mat-dialog-actions>
