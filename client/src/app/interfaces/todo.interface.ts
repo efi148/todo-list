@@ -7,6 +7,9 @@ export interface Todo {
     checked: boolean;
 }
 
+export type CreateTodo = Pick<Todo, 'title' | 'description'>;
+export type UpdateTodo = Partial<Omit<Todo, 'id'>>;
+
 export interface TodoDialogData {
     mode: dialogMode;
     todo?: Todo;

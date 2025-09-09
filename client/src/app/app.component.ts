@@ -1,24 +1,24 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 
-import { dialogMode, dialogResult, Todo, TodoDialogData } from "@interfaces";
+import { CreateTodo, dialogMode, dialogResult, Todo, TodoDialogData, UpdateTodo } from "@interfaces";
 import { ApiService } from "@services/api.service";
 import { baseUrl } from "@const";
 import { HttpResponse } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
-import { first, firstValueFrom } from "rxjs";
+import { first } from "rxjs";
 import { MatToolbar } from "@angular/material/toolbar";
 import { MatCard, MatCardContent } from "@angular/material/card";
-import { MatCheckbox } from "@angular/material/checkbox";
 import { MatIconModule } from '@angular/material/icon';
 import { MatFabButton, MatIconButton } from "@angular/material/button";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { ThemeService } from "@services/theme.service";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogTodoComponent } from "./components/dialog-todo/dialog-todo.component";
+import { TodoItemComponent } from "./components/todo-item/todo-item.component";
 
 @Component({
     selector: 'app-root',
-    imports: [FormsModule, MatToolbar, MatIconModule, MatCard, MatCardContent, MatCheckbox, MatFabButton, MatIconButton, MatTooltipModule],
+    imports: [FormsModule, MatToolbar, MatIconModule, MatCard, MatCardContent, MatFabButton, MatIconButton, MatTooltipModule, TodoItemComponent],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     providers: [ApiService, ThemeService]
@@ -26,6 +26,7 @@ import { DialogTodoComponent } from "./components/dialog-todo/dialog-todo.compon
 export class AppComponent implements OnInit {
     readonly dialog = inject(MatDialog);
     todos: Todo[] = [];
+    protected readonly signal = signal;
 
     constructor(public themeService: ThemeService, private readonly apiService: ApiService) {
     }
@@ -41,32 +42,44 @@ export class AppComponent implements OnInit {
         });
     }
 
-    addTodo(title: string, description?: string) {
+    onAddTodo(title: string, description = '') {
         if (!title.trim()) return;
-        const todo: Partial<Todo> = {title, description};
-        firstValueFrom(this.apiService.post(baseUrl + '/todos', todo)).then(() => {
-            this.getTodos();
+        const todo: CreateTodo = {title, description};
+        this.apiService.post(baseUrl + '/todos', todo)
+            .subscribe({
+                next: (res) => {
+                    console.log(res);
+                    this.todos.push(res.body as Todo);
+                },
+                error: (err) => console.error('Failed to add todo', err)
+            });
+    }
+
+    onUpdateTodo(updatedTodo: Todo) {
+        const {id, ...updatedTodoToServer} = updatedTodo;
+
+        this.apiService.patch(baseUrl + '/todos/' + id, updatedTodoToServer as UpdateTodo)
+            .pipe(first())
+            .subscribe({
+                next: () => {
+                    const idx = this.todos.findIndex(t => t.id === id);
+                    if (idx > -1) this.todos[idx] = updatedTodo;
+                },
+                error: err => console.error('Update failed', err)
+            });
+    }
+
+    onDeleteTodo(id: number) {
+        this.apiService.delete(baseUrl + '/todos/' + id).subscribe({
+            next: () => {
+                this.todos = this.todos.filter(t => t.id !== id);
+            },
+            error: err => console.error('Delete failed', err)
         });
     }
 
-    updateTodo(todo: Todo) {
-        this.apiService.patch(baseUrl + '/todos/' + todo.id, {
-            title: todo.title,
-            checked: todo.checked,
-            description: todo.description
-        }).pipe(first()).subscribe(() => {
-            this.getTodos();
-        });
-    }
-
-    toggleChecked(todo: Todo) {
-        this.updateTodo(todo);
-    }
-
-    deleteTodo(id: number) {
-        this.apiService.delete(baseUrl + '/todos/' + id).pipe(first()).subscribe(() => {
-            this.getTodos();
-        });
+    onView(event: { todo: Todo, isEditable: boolean }) {
+        this.openTodoDialog(event.isEditable ? 'edit' : 'view', event.todo);
     }
 
     toggleTheme(): void {
@@ -82,13 +95,13 @@ export class AppComponent implements OnInit {
 
             switch (result.action) {
                 case 'create':
-                    this.addTodo(result.todo.title, result.todo.description);
+                    this.onAddTodo(result.todo.title, result.todo.description);
                     break;
                 case 'save':
-                    this.updateTodo(result.todo);
+                    this.onUpdateTodo(result.todo);
                     break;
                 case 'delete':
-                    if (todo?.id !== undefined) this.deleteTodo(todo.id);
+                    if (todo?.id !== undefined) this.onDeleteTodo(todo.id);
                     break;
             }
 

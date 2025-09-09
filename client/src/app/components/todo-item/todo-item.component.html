@@ -1,0 +1,29 @@
+<mat-card class="todo-card" appearance="outlined">
+  <mat-card-content class="todo-card-content">
+    <div class="todo-main">
+      <mat-checkbox
+        [checked]="todo().checked"
+        (change)="toggleChecked()"
+        [attr.aria-label]="'Mark ' + todo().title + (todo().checked ? ' as incomplete' : ' as complete')">
+      </mat-checkbox>
+      <div class="todo-text" [class.completed]="todo().checked">
+        <h3 class="todo-title text-ellipsis">{{ todo().title }}
+          @if (todo().description && todo().description.trim()) {
+            |<span class="todo-description text-ellipsis"> {{ todo().description }}</span>
+          }
+        </h3>
+      </div>
+    </div>
+    <div class="todo-actions">
+      <button mat-icon-button (click)="view.emit({todo: todo(), isEditable: false})" matTooltip="Expand" matTooltipPosition="above">
+        <mat-icon>arrow_outward</mat-icon>
+      </button>
+      <button mat-icon-button (click)="view.emit({todo: todo(), isEditable: true})" matTooltip="Edit" matTooltipPosition="above">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="delete.emit(todo().id)" matTooltip="Delete" matTooltipPosition="above">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

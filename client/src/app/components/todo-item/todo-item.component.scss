@@ -1,0 +1,50 @@
+.todo-card {
+
+  .todo-card-content {
+    display: flex;
+
+    .todo-main {
+      display: flex;
+      gap: var(--spacing-sm);
+      flex: 1;
+      align-items: center;
+      overflow: hidden;
+
+      .todo-text {
+        flex: 1;
+        min-width: 0;
+
+        &.completed {
+          .todo-title {
+            text-decoration: line-through;
+            opacity: 0.6;
+          }
+        }
+
+        .todo-title {
+          margin: 0;
+          font-weight: 500;
+        }
+
+        .todo-description {
+          margin: 0;
+          color: var(--mat-sys-on-surface-variant, rgba(0, 0, 0, 0.6));
+          font-weight: 400;
+        }
+      }
+    }
+
+    .todo-actions {
+      display: none;
+      gap: var(--spacing-xs);
+      margin-left: var(--spacing-sm);
+    }
+  }
+
+  &:hover {
+    .todo-actions {
+      display: flex !important;
+    }
+  }
+
+}
