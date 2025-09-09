@@ -18,6 +18,30 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+    "paths": {
+      "baseUrl": ["./"],
+      "@const": [
+        "./src/app/const"
+      ],
+      "@interfaces": [
+        "./src/app/interfaces"
+      ],
+      "@pipes": [
+        "./src/app/pipes"
+      ],
+      "@directives": [
+        "./src/app/directives"
+      ],
+      "@guards": [
+        "./src/app/guards"
+      ],
+      "@resolvers": [
+        "./src/app/resolvers"
+      ],
+      "@services/*": [
+        "./src/app/services/*"
+      ]
+    },
     "lib": [
       "ES2022",
       "dom"
