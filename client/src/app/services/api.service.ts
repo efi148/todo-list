@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
+import { baseUrl } from "@const";
 
 @Injectable({
     providedIn: 'root'
@@ -10,23 +11,23 @@ export class ApiService {
     constructor(private readonly httpClient: HttpClient) {
     }
 
-    get<T>(uri: string, headers?: HttpHeaders): Observable<HttpResponse<T>> {
-        return this.httpClient.get<T>(uri, {headers, observe: 'response'})
+    get<T>(path: string, headers?: HttpHeaders): Observable<HttpResponse<T>> {
+        return this.httpClient.get<T>(`${baseUrl}${path}`, {headers, observe: 'response'})
             .pipe(catchError(this.handleError));
     }
 
-    post<T>(uri: string, body: any, headers?: HttpHeaders): Observable<HttpResponse<T>> {
-        return this.httpClient.post<T>(uri, body, {headers, observe: 'response'})
+    post<T>(path: string, body: any, headers?: HttpHeaders): Observable<HttpResponse<T>> {
+        return this.httpClient.post<T>(`${baseUrl}${path}`, body, {headers, observe: 'response'})
             .pipe(catchError(this.handleError));
     }
 
-    patch<T>(uri: string, body = {}, headers?: HttpHeaders): Observable<HttpResponse<T>> {
-        return this.httpClient.patch<T>(uri, body, {headers, observe: 'response'})
+    patch<T>(path: string, body = {}, headers?: HttpHeaders): Observable<HttpResponse<T>> {
+        return this.httpClient.patch<T>(`${baseUrl}${path}`, body, {headers, observe: 'response'})
             .pipe(catchError(this.handleError));
     }
 
-    delete<T>(uri: string, headers?: HttpHeaders): Observable<HttpResponse<T>> {
-        return this.httpClient.delete<T>(uri, {headers, observe: 'response'})
+    delete<T>(path: string, headers?: HttpHeaders): Observable<HttpResponse<T>> {
+        return this.httpClient.delete<T>(`${baseUrl}${path}`, {headers, observe: 'response'})
             .pipe(catchError(this.handleError));
     }
 

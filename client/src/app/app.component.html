@@ -15,32 +15,32 @@
 
 <!-- Main Content -->
 <div class="app-container">
-    <!-- Todo List -->
-    @if (todos.length > 0) {
-        <div class="todo-list-container">
-            @for (todo of todos; track todo) {
-                <app-todo-item
-                        [todo]="signal(todo)"
-                        (update)="onUpdateTodo($event)"
-                        (delete)="onDeleteTodo($event)"
-                        (view)="onView($event)">
-                </app-todo-item>
-            }
-        </div>
-    }
-
-    <!-- Empty State -->
-    @if (todos.length === 0) {
-        <div class="empty-state">
-            <mat-card class="empty-card">
-                <mat-card-content class="empty-content">
-                    <mat-icon class="empty-icon">task_alt</mat-icon>
-                    <h2>There is nothing here...</h2>
-                    <p>You can create a new task by clicking the + button</p>
-                </mat-card-content>
-            </mat-card>
-        </div>
-    }
+    <div class="todo-list-wrapper">
+        @if (todos.length > 0) {
+            <div class="todo-list-container">
+                @for (todo of todos; track todo) {
+                    <app-todo-item
+                            [todo]="signal(todo)"
+                            (update)="onUpdateTodo($event)"
+                            (delete)="onDeleteTodo($event)"
+                            (view)="onView($event)">
+                    </app-todo-item>
+                }
+            </div>
+        }
+        <!-- Empty State -->
+        @if (todos.length === 0) {
+            <div class="empty-state">
+                <mat-card class="empty-card">
+                    <mat-card-content class="empty-content">
+                        <mat-icon class="empty-icon">task_alt</mat-icon>
+                        <h2>There is nothing here...</h2>
+                        <p>You can create a new task by clicking the + button</p>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        }
+    </div>
 </div>
 
 <!-- Floating Action Button -->

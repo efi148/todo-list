@@ -54,14 +54,14 @@ body {
 }
 
 :root {
-  --spacing-xxs: 0.25rem;   /* 4px */
-  --spacing-xs: 0.5rem;     /* 8px */
-  --spacing-sm: 1rem;       /* 16px */
-  --spacing-md: 1.5rem;     /* 24px */
-  --spacing-lg: 2rem;       /* 32px */
-  --spacing-xl: 2.5rem;     /* 40px */
-  --spacing-2xl: 3rem;      /* 48px */
-  --spacing-3xl: 4rem;      /* 64px */
+  --spacing-xxs: 0.25rem; /* 4px */
+  --spacing-xs: 0.5rem; /* 8px */
+  --spacing-sm: 1rem; /* 16px */
+  --spacing-md: 1.5rem; /* 24px */
+  --spacing-lg: 2rem; /* 32px */
+  --spacing-xl: 2.5rem; /* 40px */
+  --spacing-2xl: 3rem; /* 48px */
+  --spacing-3xl: 4rem; /* 64px */
 }
 
 html, body {
@@ -72,4 +72,34 @@ html, body {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+// Scrollbar styles
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 8px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background:  var(--mat-sys-primary-container);
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+*:hover {
+  /* Track on hover */
+  &::-webkit-scrollbar-track {
+    background: var(--mat-sys-surface-variant);
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb {
+    background: var(--mat-sys-primary);
+  }
 }

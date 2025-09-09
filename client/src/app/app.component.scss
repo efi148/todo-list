@@ -1,7 +1,14 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  gap: var(--spacing-xxs);
+}
+
 .app-toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  z-index: 10;
+  flex: fit-content;
+  flex: 0 0 auto;
 
   .toolbar-spacer {
     flex: 1 1 auto;
@@ -9,6 +16,13 @@
 }
 
 .app-container {
+  overflow-y: auto;
+  flex: 1 1 auto;
+  width: 100%;
+  margin: 0;
+}
+
+.todo-list-wrapper {
   padding: var(--spacing-md);
   max-width: 800px;
   margin: 0 auto;

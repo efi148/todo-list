@@ -2,10 +2,8 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 
 import { CreateTodo, dialogMode, dialogResult, Todo, TodoDialogData, UpdateTodo } from "@interfaces";
 import { ApiService } from "@services/api.service";
-import { baseUrl } from "@const";
 import { HttpResponse } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
-import { first } from "rxjs";
 import { MatToolbar } from "@angular/material/toolbar";
 import { MatCard, MatCardContent } from "@angular/material/card";
 import { MatIconModule } from '@angular/material/icon';
@@ -36,7 +34,7 @@ export class AppComponent implements OnInit {
     }
 
     getTodos(): void {
-        this.apiService.get<Todo[]>(baseUrl + '/todos').pipe(first()).subscribe((response: HttpResponse<Todo[]>) => {
+        this.apiService.get<Todo[]>('/todos').subscribe((response: HttpResponse<Todo[]>) => {
             const {body: data} = response;
             this.todos = data || [];
         });
@@ -45,7 +43,7 @@ export class AppComponent implements OnInit {
     onAddTodo(title: string, description = '') {
         if (!title.trim()) return;
         const todo: CreateTodo = {title, description};
-        this.apiService.post(baseUrl + '/todos', todo)
+        this.apiService.post('/todos', todo)
             .subscribe({
                 next: (res) => {
                     console.log(res);
@@ -58,8 +56,7 @@ export class AppComponent implements OnInit {
     onUpdateTodo(updatedTodo: Todo) {
         const {id, ...updatedTodoToServer} = updatedTodo;
 
-        this.apiService.patch(baseUrl + '/todos/' + id, updatedTodoToServer as UpdateTodo)
-            .pipe(first())
+        this.apiService.patch('/todos/' + id, updatedTodoToServer as UpdateTodo)
             .subscribe({
                 next: () => {
                     const idx = this.todos.findIndex(t => t.id === id);
@@ -70,7 +67,7 @@ export class AppComponent implements OnInit {
     }
 
     onDeleteTodo(id: number) {
-        this.apiService.delete(baseUrl + '/todos/' + id).subscribe({
+        this.apiService.delete('/todos/' + id).subscribe({
             next: () => {
                 this.todos = this.todos.filter(t => t.id !== id);
             },
