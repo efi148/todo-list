@@ -113,18 +113,18 @@ interface Todo {
 <h3 id="available-scripts">Available Scripts</h3>
 
 
-  - `npm start` – Runs the app in development mode on [http://localhost:4201](http://localhost:4201) and opens it in the browser.
+  - `npm start` –Runs the app in development mode on [http://localhost:4201](http://localhost:4201) and opens it in the browser.
 
-  - `npm run build` – Builds the app for production to the `dist/` folder.
+  - `npm run build` –Builds the app for production to the `dist/` folder.
 
-  - `npm run watch` – Builds the app in development mode and rebuilds on file changes.
+  - `npm run watch` –Builds the app in development mode and rebuilds on file changes.
 
-  - `npm test` – Launches the unit test runner.
+  - `npm test` –Launches the unit test runner.
 
 ## Contributing
 
-    Contributions are welcome! If you find any issues or have suggestions, feel free to open an issue or submit a pull request.
+Contributions are welcome! If you find any issues or have suggestions, feel free to open an issue or submit a pull request.
 
 ## License
 
-    This project is licensed under the **[MIT License](https://opensource.org/license/mit/)**.
+This project is licensed under the **[MIT License](https://opensource.org/license/mit/)**.
