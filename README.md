@@ -5,8 +5,13 @@
 - [server](#server)
   - [Installation](#installation)
   - [Endpoints](#endpoints)
-  - [Contributing](#contributing)
-  - [License](#license)
+
+- [client](#client)
+  - [Installation](#installation)
+  - [Available Scripts](#endpoints)
+
+- [Contributing](#contributing)
+- [License](#license)
 
 ## server
 
@@ -85,10 +90,39 @@ interface Todo {
 
     Delete a specific to-do by ID.
 
-- ### Contributing
+## client
+
+- ### Installation
+
+  1. Navigate to the client folder:
+
+      ```bash
+     cd todo-list/client
+     npm install
+      ```
+
+  2. Start the development server:
+
+      ```bash
+      npm start
+      ```
+
+  The App will be available at <http://localhost:4201>.
+
+- ### Available Scripts
+
+  - `npm start` – Runs the app in development mode on [http://localhost:4201](http://localhost:4201) and opens it in the browser.
+
+  - `npm run build` – Builds the app for production to the `dist/` folder.
+
+  - `npm run watch` – Builds the app in development mode and rebuilds on file changes.
+
+  - `npm test` – Launches the unit test runner.
+
+## Contributing
 
     Contributions are welcome! If you find any issues or have suggestions, feel free to open an issue or submit a pull request.
 
-- ### License
+## License
 
     This project is licensed under the **[MIT License](https://opensource.org/license/mit/)**.
