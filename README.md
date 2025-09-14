@@ -3,12 +3,13 @@
 ## Table of Contents
 
 - [server](#server)
+  - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Endpoints](#endpoints)
 
 - [client](#client)
-  - [Installation](#installation)
-  - [Available Scripts](#endpoints)
+  - [Installation](#installation2)
+  - [Available Scripts](#Available Scripts2)
 
 - [Contributing](#contributing)
 - [License](#license)
@@ -92,7 +93,7 @@ interface Todo {
 
 ## client
 
-- ### Installation
+- ### Installation2
 
   1. Navigate to the client folder:
 
@@ -109,7 +110,7 @@ interface Todo {
 
   The App will be available at <http://localhost:4201>.
 
-- ### Available Scripts
+- ### Available Scripts2
 
   - `npm start` – Runs the app in development mode on [http://localhost:4201](http://localhost:4201) and opens it in the browser.
 
