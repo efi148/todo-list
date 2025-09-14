@@ -4,12 +4,12 @@
 
 - [server](#server)
   - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
+  - [Installation](#server-installation)
   - [Endpoints](#endpoints)
 
 - [client](#client)
-  - [Installation](#installation2)
-  - [Available Scripts](#Available Scripts2)
+  - [Installation](#client-installation)
+  - [Available Scripts](#available-scripts)
 
 - [Contributing](#contributing)
 - [License](#license)
@@ -20,7 +20,7 @@
   - Node.js >= 16.14.0 (18 LTS or higher recommended)
   - npm >= 8
 
-- ### Installation
+<h3 id="server-installation">Installation</h3>
 
     1. Clone the repository:
 
@@ -43,7 +43,7 @@
 
     The API will be available at <http://localhost:3000>.
 
-- ### Basic Todo Structure
+### Basic Todo Structure
   Example of a typical Todo (API response):
 
 ```TypeScript
@@ -54,7 +54,7 @@ interface Todo {
   checked: boolean;
 }
 ```
-- ### Endpoints
+### Endpoints
 
   - ```http request
     GET /todos
@@ -93,7 +93,7 @@ interface Todo {
 
 ## client
 
-- ### Installation2
+<h3 id="client-installation">Installation</h3>
 
   1. Navigate to the client folder:
 
@@ -110,7 +110,8 @@ interface Todo {
 
   The App will be available at <http://localhost:4201>.
 
-- ### Available Scripts2
+<h3 id="available-scripts">Available Scripts</h3>
+
 
   - `npm start` – Runs the app in development mode on [http://localhost:4201](http://localhost:4201) and opens it in the browser.
 
