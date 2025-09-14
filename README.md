@@ -10,6 +10,10 @@
 
 ## server
 
+### Prerequisites
+  - Node.js >= 16.14.0 (18 LTS or higher recommended)
+  - npm >= 8
+
 - ### Installation
 
     1. Clone the repository:
@@ -33,6 +37,17 @@
 
     The API will be available at <http://localhost:3000>.
 
+- ### Basic Todo Structure
+  Example of a typical Todo (API response):
+
+```TypeScript
+interface Todo {
+  id: string;
+  title: string;
+  description: string;
+  checked: boolean;
+}
+```
 - ### Endpoints
 
   - ```http request
