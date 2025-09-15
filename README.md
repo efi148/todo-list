@@ -22,26 +22,26 @@
 
 <h3 id="server-installation">Installation</h3>
 
-    1. Clone the repository:
+1. Clone the repository:
 
-        ```bash
-        git clone https://github.com/your-username/todo-api.git
-        ```
+    ```bash
+    git clone https://github.com/your-username/todo-api.git
+    ```
 
-    2. Install the dependencies:
+2. Install the dependencies:
 
-        ```bash
-        cd todo-list/server
-        npm install
-        ```
+    ```bash
+    cd todo-list/server
+    npm install
+    ```
 
-    3. Start the development server:
+3. Start the development server:
 
-        ```bash
-        npm run start:dev
-        ```
+    ```bash
+    npm run start:dev
+    ```
 
-    The API will be available at <http://localhost:3000>.
+The API will be available at <http://localhost:3000>.
 
 ### Basic Todo Structure
   Example of a typical Todo (API response):
