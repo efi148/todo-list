@@ -37,7 +37,7 @@ export class DialogTodoComponent {
     readonly data = inject<TodoDialogData>(MAT_DIALOG_DATA);
     readonly mode = signal(this.data.mode);
     title = model(this.data.todo?.title);
-    description =  model(this.data.todo?.description ?? '');
+    description = model(this.data.todo?.description ?? '');
     readonly dialogTitle = computed(() =>
         this.mode() === 'create'
             ? `Create Task ${this.title() ? `(${this.title()})` : ''}`
@@ -92,6 +92,15 @@ export class DialogTodoComponent {
             "Low priority", "Nice to have done", "Essential", "Do before dinner",
             "Double-check when finished", "Fun activity", "Long-term goal", "Requires focus", "",
             "Quick and easy", "Might take time", "Relaxing", "Challenging", "",
+            "Set aside focused time today to complete this task without distractions and unexpected interruptions.",
+            "Break this task into smaller steps, tackle the first one now, and build steady momentum.",
+            "Confirm any dependencies or blockers, then proceed confidently to finish before the end of day.",
+            "Schedule a realistic deadline, notify stakeholders if needed, and deliver a clean, well-documented result.",
+            "Allocate thirty minutes, silence notifications, and push this across the finish line with focused attention.",
+            "Double-check acceptance criteria, test thoroughly for edge cases, and mark complete only after verification.",
+            "Coordinate with teammates on responsibilities, confirm ownership, and avoid duplicated work or conflicting changes.",
+            "Capture lessons learned when finished, update the task details, and improve the template for next time.",
+            "If the scope grows unexpectedly, re-estimate effort, communicate timeline impacts, and renegotiate priorities transparently.",
             "Set a reminder", "Ask for help if needed", "Reward yourself after", "Postpone if busy",
             "Top priority", "Weekly routine", "Monthly task", "Can batch with others",
             "Good habit to build", "Optional but recommended", ""

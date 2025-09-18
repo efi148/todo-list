@@ -1,6 +1,6 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 
-import { CreateTodo, dialogMode, dialogResult, Todo, TodoDialogData, UpdateTodo } from "@interfaces";
+import { ConfirmDeleteData, CreateTodo, dialogMode, dialogResult, Todo, TodoDialogData, UpdateTodo } from "@interfaces";
 import { ApiService } from "@services/api.service";
 import { HttpResponse } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
@@ -14,7 +14,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { DialogTodoComponent } from "./components/dialog-todo/dialog-todo.component";
 import { TodoItemComponent } from "./components/todo-item/todo-item.component";
 import { MatChip } from "@angular/material/chips";
-import { MatBadge } from "@angular/material/badge";
+import { ConfirmDeleteDialogComponent } from "./components/confirm-delete-dialog/confirm-delete-dialog.component";
 
 @Component({
     selector: 'app-root',
@@ -27,16 +27,7 @@ export class AppComponent implements OnInit {
     readonly dialog = inject(MatDialog);
     todos = signal<Todo[]>([]);
     pendingItems = computed(() => this.todos().filter(t => !t.checked).length);
-    totalItems   = computed(() => this.todos().length);
-
-    displayChip = computed(() => {
-        const total = this.totalItems();
-        const pending = this.pendingItems();
-        if (total === 0) return null;
-        return { total, pending, showPending: pending > 0 };
-    });
-
-
+    totalItems = computed(() => this.todos().length);
 
     protected readonly signal = signal;
 
@@ -87,6 +78,19 @@ export class AppComponent implements OnInit {
         });
     }
 
+    confirmDelete = (id: number) => {
+        const todo = this.todos().find(t => t.id === id);
+        if (todo) {
+            const data: ConfirmDeleteData = {title: todo.title};
+
+            const ref = this.dialog.open(ConfirmDeleteDialogComponent, {data, width: '420px'});
+
+            ref.afterClosed().subscribe(result => {
+                if (result === 'confirm') this.onDeleteTodo(id);
+            });
+        }
+    }
+
     toggleTheme(): void {
         this.themeService.toggleTheme();
     }
@@ -106,7 +110,7 @@ export class AppComponent implements OnInit {
                     this.onUpdateTodo(result.todo);
                     break;
                 case 'delete':
-                    if (todo?.id !== undefined) this.onDeleteTodo(todo.id);
+                    if (todo?.id !== undefined) this.confirmDelete(todo.id);
                     break;
             }
 

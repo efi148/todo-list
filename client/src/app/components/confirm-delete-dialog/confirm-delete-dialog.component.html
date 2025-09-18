@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>'{{ data.title }}' will be permanently deleted.</h2>
+<mat-dialog-content>
+    You won't be able to undo this action. <br>
+    Are you sure you want to delete it?
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()" cdkFocusInitial aria-label="Cancel deletion">
+        Cancel <mat-icon>cancel</mat-icon>
+    </button>
+    <button mat-button matButton="filled" class="danger" (click)="onConfirm()" aria-label="Confirm delete">
+        Delete <mat-icon><span class="material-symbols-outlined">
+delete_forever
+</span></mat-icon>
+    </button>
+</mat-dialog-actions>

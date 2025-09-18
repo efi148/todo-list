@@ -26,20 +26,20 @@
 <!-- Main Content -->
 <div class="app-container">
     <div class="todo-list-wrapper">
-        @if (todos().length > 0) {
+        @if (totalItems() > 0) {
             <div class="todo-list-container">
                 @for (todo of todos(); track todo) {
                     <app-todo-item
                             [todo]="signal(todo)"
                             (update)="onUpdateTodo($event)"
-                            (delete)="onDeleteTodo($event)"
+                            (delete)="confirmDelete($event)"
                             (view)="openTodoDialog($event.isEditable ? 'edit' : 'view', $event.todo)">
                     </app-todo-item>
                 }
             </div>
         }
         <!-- Empty State -->
-        @if (todos().length === 0) {
+        @if (totalItems() === 0) {
             <div class="empty-state">
                 <mat-card class="empty-card">
                     <mat-card-content class="empty-content">

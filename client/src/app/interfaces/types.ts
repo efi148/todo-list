@@ -6,3 +6,4 @@ export type ThemeMode = 'light' | 'dark' | 'system';
 export type dialogMode = 'create' | 'view' | 'edit';
 export type dialogAction = 'create' | 'save' | 'delete';
 export type dialogResult = {action: dialogAction, todo: Todo};
+export type ConfirmDeleteData = { title: string };
