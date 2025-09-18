@@ -73,4 +73,38 @@ export class DialogTodoComponent {
         const changed = this.title() !== this.data.todo?.title || this.description() !== this.data.todo?.description;
         return !!form.valid && changed;
     }
+
+    generateNew() {
+        const titles = [
+            "Buy milk", "Walk the dog", "Read a book", "Call mom",
+            "Do the laundry", "Clean the kitchen", "Write a journal entry", "Pay bills",
+            "Check emails", "Water the plants", "Go for a run", "Plan weekly meals",
+            "Book a dentist appointment", "Vacuum the house", "Organize closet", "Practice guitar",
+            "Study JavaScript", "Meditate for 10 minutes", "Stretch before bed", "Feed the cat",
+            "Update budget sheet", "Take out the trash", "Fix the leaky faucet", "Backup files",
+            "Research vacation ideas", "Prepare presentation", "Read news articles", "Schedule car maintenance",
+            "Write thank-you note", "Plan weekend activity"
+        ];
+
+        const descriptions = [
+            "Remember to do this today", "Important!", "Optional task", "",
+            "Don’t forget this one", "Try to finish by tonight", "Urgent!", "Can wait until tomorrow",
+            "Low priority", "Nice to have done", "Essential", "Do before dinner",
+            "Double-check when finished", "Fun activity", "Long-term goal", "Requires focus", "",
+            "Quick and easy", "Might take time", "Relaxing", "Challenging", "",
+            "Set a reminder", "Ask for help if needed", "Reward yourself after", "Postpone if busy",
+            "Top priority", "Weekly routine", "Monthly task", "Can batch with others",
+            "Good habit to build", "Optional but recommended", ""
+        ];
+
+        function getRandomItem(arr: string[]): string {
+            const index = Math.floor(Math.random() * arr.length);
+            return arr[index];
+        }
+
+        const randomTitle = getRandomItem(titles);
+        const randomDescription = getRandomItem(descriptions);
+        const todo = {title: randomTitle, description: randomDescription};
+        this.dialogRef.close({action: 'create', todo});
+    }
 }

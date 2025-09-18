@@ -47,6 +47,9 @@
     }
 
     @if (mode() === 'create') {
+        <button matButton="outlined" (click)="generateNew()">I'm Feeling Lucky
+            <mat-icon>casino</mat-icon>
+        </button>
         <button matButton="filled" [disabled]="!form.valid" (click)="onCreate()">Create
             <mat-icon>add</mat-icon>
         </button>
