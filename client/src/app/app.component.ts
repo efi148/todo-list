@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 
 import { CreateTodo, dialogMode, dialogResult, Todo, TodoDialogData, UpdateTodo } from "@interfaces";
 import { ApiService } from "@services/api.service";
@@ -13,17 +13,31 @@ import { ThemeService } from "@services/theme.service";
 import { MatDialog } from "@angular/material/dialog";
 import { DialogTodoComponent } from "./components/dialog-todo/dialog-todo.component";
 import { TodoItemComponent } from "./components/todo-item/todo-item.component";
+import { MatChip } from "@angular/material/chips";
+import { MatBadge } from "@angular/material/badge";
 
 @Component({
     selector: 'app-root',
-    imports: [FormsModule, MatToolbar, MatIconModule, MatCard, MatCardContent, MatFabButton, MatIconButton, MatTooltipModule, TodoItemComponent],
+    imports: [FormsModule, MatToolbar, MatIconModule, MatCard, MatCardContent, MatFabButton, MatIconButton, MatTooltipModule, TodoItemComponent, MatChip],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     providers: [ApiService, ThemeService]
 })
 export class AppComponent implements OnInit {
     readonly dialog = inject(MatDialog);
-    todos: Todo[] = [];
+    todos = signal<Todo[]>([]);
+    pendingItems = computed(() => this.todos().filter(t => !t.checked).length);
+    totalItems   = computed(() => this.todos().length);
+
+    displayChip = computed(() => {
+        const total = this.totalItems();
+        const pending = this.pendingItems();
+        if (total === 0) return null;
+        return { total, pending, showPending: pending > 0 };
+    });
+
+
+
     protected readonly signal = signal;
 
     constructor(public themeService: ThemeService, private readonly apiService: ApiService) {
@@ -36,7 +50,7 @@ export class AppComponent implements OnInit {
     getTodos(): void {
         this.apiService.get<Todo[]>('/todos').subscribe((response: HttpResponse<Todo[]>) => {
             const {body: data} = response;
-            this.todos = data || [];
+            this.todos.set(data || []);
         });
     }
 
@@ -46,7 +60,7 @@ export class AppComponent implements OnInit {
         this.apiService.post('/todos', todo)
             .subscribe({
                 next: (res) => {
-                    this.todos.push(res.body as Todo);
+                    this.todos.update(t => [...t, res.body as Todo]);
                 },
                 error: (err) => console.error('Failed to add todo', err)
             });
@@ -58,8 +72,7 @@ export class AppComponent implements OnInit {
         this.apiService.patch('/todos/' + id, updatedTodoToServer as UpdateTodo)
             .subscribe({
                 next: () => {
-                    const idx = this.todos.findIndex(t => t.id === id);
-                    if (idx > -1) this.todos[idx] = updatedTodo;
+                    this.todos.update(t => t.map(x => x.id === id ? updatedTodo : x));
                 },
                 error: err => console.error('Update failed', err)
             });
@@ -68,7 +81,7 @@ export class AppComponent implements OnInit {
     onDeleteTodo(id: number) {
         this.apiService.delete('/todos/' + id).subscribe({
             next: () => {
-                this.todos = this.todos.filter(t => t.id !== id);
+                this.todos.update(t => t.filter(x => x.id !== id));
             },
             error: err => console.error('Delete failed', err)
         });

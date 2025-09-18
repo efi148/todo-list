@@ -1,6 +1,16 @@
 <!-- Main Toolbar -->
 <mat-toolbar color="accent" class="app-toolbar">
-    <span>Todo App</span>
+    <span>Todo App</span>&nbsp;&nbsp;&nbsp;
+    @if (totalItems() > 0) {
+        <mat-chip>
+            @if (pendingItems() > 0) {
+                <b>{{ pendingItems() }}</b> | Total {{ totalItems() }}
+            } @else {
+                Total {{ totalItems() }}
+            }
+        </mat-chip>
+    }
+
     <div class="toolbar-spacer"></div>
     <button mat-icon-button (click)="toggleTheme()"
             [attr.aria-label]="'Current theme: ' + themeService.themeMode()"
@@ -16,9 +26,9 @@
 <!-- Main Content -->
 <div class="app-container">
     <div class="todo-list-wrapper">
-        @if (todos.length > 0) {
+        @if (todos().length > 0) {
             <div class="todo-list-container">
-                @for (todo of todos; track todo) {
+                @for (todo of todos(); track todo) {
                     <app-todo-item
                             [todo]="signal(todo)"
                             (update)="onUpdateTodo($event)"
@@ -29,7 +39,7 @@
             </div>
         }
         <!-- Empty State -->
-        @if (todos.length === 0) {
+        @if (todos().length === 0) {
             <div class="empty-state">
                 <mat-card class="empty-card">
                     <mat-card-content class="empty-content">
@@ -44,6 +54,7 @@
 </div>
 
 <!-- Floating Action Button -->
-<button matTooltip="New Item" matTooltipPosition="above" mat-fab color="primary" class="fab" (click)="openTodoDialog('create')">
+<button matTooltip="New Item" matTooltipPosition="above" mat-fab color="primary" class="fab"
+        (click)="openTodoDialog('create')">
     <mat-icon>add</mat-icon>
 </button>
