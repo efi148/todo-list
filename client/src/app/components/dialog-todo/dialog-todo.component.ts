@@ -116,4 +116,15 @@ export class DialogTodoComponent {
         const todo = {title: randomTitle, description: randomDescription};
         this.dialogRef.close({action: 'create', todo});
     }
+
+    onSubmit(form: NgForm): void {
+        if (!form.valid) return;
+        if (this.mode() === 'create') {
+            this.onCreate();
+            return;
+        }
+        if (this.mode() === 'edit' && this.canSave(form)) {
+            this.onSave();
+        }
+    }
 }
